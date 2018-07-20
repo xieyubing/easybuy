@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xb.easybuy.mapper.ProductMapper">
+    <insert id="insert" parameterType="net.xb.easybuy.baen.Product">
+        INSERT INTO easybuy_product (ep_id,ep_name,ep_price,ep_description,ep_price,ep_stock,epc_id,epc_child_id，ep_file_name)
+         VALUES (#{ep_id},#{ep_name},#{ep_price},#{ep_description},#{ep_price},#{ep_stock},#{epc_id},#{epc_child_id},#{ep_file_name});
+    </insert>
+    <update id="update" parameterType="net.xb.easybuy.baen.Product">
+        UPDATE easybuy_product SET ep_name=#{ep_name},ep_price=#{ep_price},ep_stock=#{ep_stock}, epc_id = #{epc_id},ep_description=#{ep_description},
+        epc_child_id=#{epc_child_id},ep_file_name=#{ep_file_name}
+        WHERE ep_id = #{ep_id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM easybuy_product WHERE ep_id = #{ep_id};
+    </delete>
+
+    <select id="findById" parameterType="Integer" resultType="net.xb.easybuy.baen.Product">
+         SELECT * FROM easybuy_product WHERE ep_id = #{ep_id};
+    </select>
+
+    <select id="findByIds" parameterType="Integer" resultType="net.xb.easybuy.baen.Product">
+        SELECT * FROM easybuy_product WHERE epc_id = #{epc_id};
+    </select>
+
+    <select id="findAll" resultType="net.xb.easybuy.baen.Product">
+        SELECT * FROM easybuy_product
+    </select>
+    <select id="findAllCount" resultType="Integer">
+        SELECT count(*) FROM easybuy_product
+    </select>
+
+    <select id="PageProduct" resultType="net.xb.easybuy.baen.Product">
+        SELECT * FROM easybuy_product limit #{param1},#{param2}
+    </select>
+
+</mapper>

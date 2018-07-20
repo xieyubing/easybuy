@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>易买网 - 首页</title>
+	<link type="text/css" th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet"/>
+	<script type="text/javascript" th:src="@{/scripts/jquery-3.1.1.min.js}" src="../../static/scripts/jquery-3.1.1.min.js"></script>
+	<script th:src="@{/scripts/function-manage.js}" src="../static/scripts/function-manage.js"></script>
+</head>
+<body>
+<div id="header" class="wrap">
+	<div id="logo"><img th:src="@{/images/logo.gif}" src="../static/images/logo.gif" /></div>
+	<div class="help">
+		<a href="#" class="shopping" th:href="@{shopping.html}">购物车</a>
+		<span th:if="${session.username!=null}" th:text="${session.username}" style="color: red">admin</span>
+		<a th:if="${session.username==null}" href="login.html" th:href="@{/user/toLogin}">登录</a>
+		<a th:if="${session.username!=null}" href="login.html" th:href="@{/user/outLogin}">注销</a>
+		<a href="register.html" th:href="@{/user/toRegister}">注册</a>
+		<a href="guestbook.html" th:href="@{/user/toGuestbook}">留言</a>
+	</div>
+	<div class="navbar">
+		<ul class="clearfix">
+			<li class="current"><a href="#"  th:href="@{/}">首页</a></li>
+			<li><a href="#" th:href="@{/erro}">图书</a></li>
+			<li><a href="#" th:href="@{/erro}">百货</a></li>
+			<li><a href="#" th:href="@{/erro}">品牌</a></li>
+			<li><a href="#" th:href="@{/erro}">促销</a></li>
+		</ul>
+	</div>
+</div>
+<div id="childNav">
+	<div class="wrap">
+		<ul class="clearfix">
+			<li class="first"><a href="#" th:href="@{/erro}">音乐</a></li>
+			<li><a href="#" th:href="@{/erro}">影视</a></li>
+			<li><a href="#" th:href="@{/erro}">少儿</a></li>
+			<li><a href="#" th:href="@{/erro}">动漫</a></li>
+			<li><a href="#" th:href="@{/erro}">小说</a></li>
+			<li><a href="#" th:href="@{/erro}">外语</a></li>
+			<li><a href="#" th:href="@{/erro}">数码相机</a></li>
+			<li><a href="#" th:href="@{/erro}">笔记本</a></li>
+			<li><a href="#" th:href="@{/erro}">羽绒服</a></li>
+			<li><a href="#" th:href="@{/erro}">秋冬靴</a></li>
+			<li><a href="#" th:href="@{/erro}">运动鞋</a></li>
+			<li><a href="#" th:href="@{/erro}">美容护肤</a></li>
+			<li><a href="#" th:href="@{/erro}">家纺用品</a></li>
+			<li><a href="#" th:href="@{/erro}">婴幼奶粉</a></li>
+			<li><a href="#" th:href="@{/erro}">饰品</a></li>
+			<li class="last"><a href="#" th:href="@{/erro}">Investor Relations</a></li>
+		</ul>
+	</div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a href="index.html" th:href="@{/}">易买网</a> &gt; 在线留言
+</div>
+<div id="main" class="wrap">
+	<div class="lefter">
+		<div class="box">
+			<h2>商品分类</h2>
+			<dl th:each="m :${session.productMap}">
+				<dt th:object="${m.key}" th:text="*{epc_name}">图书音像</dt>
+				<dd th:each="v:${m.value}">
+					<a href="product-list.html" th:href="@{/product/toProduct-List(id = ${v.epc_parent_id})}" th:text="${v.epc_name}">图书</a>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="main">
+		<div class="guestbook">
+			<h2>全部留言</h2>
+			<ul>
+				<li th:each="comment :${comments}">
+					<dl>
+						<dt th:text="${comment.ec_content}">那个什么衣服贵吗</dt>
+						<dd class="author" th:text="${comment.ec_nick_name}">网友：张三丰 <span class="timer" th:text="${#dates.format(comment.ec_create_time, 'yyyy-MM-dd HH:mm:ss')}">2010:10:10 20:00:01</span></dd>
+						<dd th:text="${comment.ec_reply}">不贵</dd>
+					</dl>
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<div class="pager">
+				<ul class="clearfix">
+					<li><a th:href="@{/user/toGuestbook(cur=${cur_page -1})}">上一页</a></li>
+					<li th:each="arr:${total_page}" th:classappend="${cur_page == arr}?'current'"><a th:href="@{/user/toGuestbook(cur=${arr})}" th:text="${arr}">1</a></li>
+					<li><a th:href="@{/user/toGuestbook(cur=${cur_page +1})}">下一页</a></li>
+				</ul>
+			</div>
+			<div id="reply-box">
+				<form>
+					<table>
+						<tr>
+							<td class="field">昵称：</td>
+							<td><input class="text" type="text" name="guestName" /></td>
+						</tr>
+						<tr>
+							<td class="field">留言标题：</td>
+							<td><input class="text" type="text" name="guestTitle" /></td>
+						</tr>
+						<tr>
+							<td class="field">留言内容：</td>
+							<td><textarea name="guestContent"></textarea></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><label class="ui-blue"><input type="submit" name="submit" value="提交留言" /></label></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	Copyright &copy; 2013 易买网 All Rights Reserved. 川ICP证1000001号
+</div>
+</body>
+</html>

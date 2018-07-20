@@ -1,0 +1,16 @@
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: net.xb.easybuy.bean
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/easybuy?characterEncoding=UTF-8
+    username: root
+    password: 1
+    driver-class-name: com.mysql.jdbc.Driver
+
+  thymeleaf:
+    cache: false
+    content-type: text/html
+    mode: HTML5

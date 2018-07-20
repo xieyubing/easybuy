@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xb.easybuy.mapper.NewsMapper">
+    <insert id="insert" parameterType="net.xb.easybuy.baen.News">
+        INSERT INTO easybuy_news (en_id,en_title,en_content,en_create_time)
+         VALUES (#{en_id},#{en_title},#{en_content},#{en_create_time});
+    </insert>
+    <update id="update" parameterType="net.xb.easybuy.baen.News">
+        UPDATE easybuy_news en_title=#{en_title},en_content=#{en_content}, en_create_time = #{en_create_time},
+        WHERE en_id = #{en_id}
+    </update>
+    <delete id="delete" parameterType="String">
+        DELETE FROM easybuy_news WHERE en_id = #{en_id};
+    </delete>
+
+    <select id="findById" resultType="net.xb.easybuy.baen.News" parameterType="Integer">
+        SELECT * FROM easybuy_news WHERE en_id = #{en_id}
+    </select>
+
+    <select id="findAll" resultType="net.xb.easybuy.baen.News">
+        SELECT * FROM easybuy_news
+    </select>
+
+    <select id="findAllCount" resultType="Integer">
+        SELECT count(*) FROM easybuy_news
+    </select>
+
+    <select id="PageProduct" resultType="net.xb.easybuy.baen.News">
+        SELECT * FROM easybuy_news limit #{param1},#{param2}
+    </select>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xb.easybuy.mapper.OrderMapper">
+    <insert id="insert" parameterType="net.xb.easybuy.baen.Order">
+        INSERT INTO easybuy_order (eo_id,eo_user_id,eo_username,eo_user_address,eo_create_time,eo_cost,eo_status,eo_type)
+         VALUES (#{eo_id},#{eo_user_id},#{eo_username},#{eo_user_address},#{eo_create_time},#{eo_cost},#{eo_status},#{eo_type});
+    </insert>
+    <update id="update" parameterType="net.xb.easybuy.baen.Order">
+        UPDATE easybuy_order eo_user_id=#{eo_user_id},eo_username=#{eo_username},eo_user_address=#{eo_user_address},
+        eo_create_time=#{eo_create_time},eo_cost=#{eo_cost},eo_status=#{eo_status},eo_type=#{eo_type}
+        WHERE eo_id=#{eo_id}
+    </update>
+    <delete id="delete" parameterType="String">
+        DELETE FROM easybuy_order WHERE eo_id = #{eo_id};
+    </delete>
+
+    <select id="findById" resultType="net.xb.easybuy.baen.Order" parameterType="Integer">
+        SELECT * FROM easybuy_order WHERE eo_id = #{eo_id}
+    </select>
+
+    <select id="findAll" resultType="net.xb.easybuy.baen.Order">
+        SELECT * FROM easybuy_order
+    </select>
+    <select id="findAllCount" resultType="Integer">
+        SELECT count(*) FROM easybuy_order
+    </select>
+
+    <select id="PageProduct" resultType="net.xb.easybuy.baen.Order">
+        SELECT * FROM easybuy_order limit #{param1},#{param2}
+    </select>
+</mapper>

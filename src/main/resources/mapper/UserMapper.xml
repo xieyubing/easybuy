@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xb.easybuy.mapper.UserMapper">
+    <insert id="insert" parameterType="net.xb.easybuy.baen.User">
+        INSERT INTO easybuy_user (eu_user_id,eu_user_name,eu_password,eu_sex,eu_birthday,eu_identity_code,eu_email,eu_mobile,eu_address,eu_status)
+        VALUES (#{eu_user_id},#{eu_user_name},#{eu_password},#{eu_sex},#{eu_birthday},#{eu_identity_code},#{eu_email},#{eu_mobile},#{eu_address},#{eu_status});
+    </insert>
+    <update id="update" parameterType="net.xb.easybuy.baen.User">
+        UPDATE easybuy_user SET eu_user_name=#{eu_user_name},eu_password=#{eu_password},eu_sex=#{eu_sex},eu_birthday=#{eu_birthday}, eu_identity_code = #{eu_identity_code},
+        eu_email=#{eu_email},eu_mobile=#{eu_mobile}, eu_address=#{eu_address},eu_status=#{eu_status}
+        WHERE eu_user_id = #{eu_user_id}
+    </update>
+    <delete id="delete" parameterType="String">
+        DELETE FROM easybuy_user WHERE eu_user_id = #{eu_user_id};
+    </delete>
+
+    <select id="findById" parameterType="String" resultType="net.xb.easybuy.baen.User">
+        SELECT * FROM easybuy_user WHERE eu_user_id = #{eu_user_id};
+    </select>
+
+    <select id="findAll" resultType="net.xb.easybuy.baen.User">
+        SELECT * FROM easybuy_user
+    </select>
+    <select id="login" resultType="net.xb.easybuy.baen.User">
+        SELECT * FROM easybuy_user WHERE eu_user_id = #{param1} AND eu_password = #{param2};
+    </select>
+    <select id="findAllCount" resultType="Integer">
+        SELECT count(*) FROM easybuy_user
+    </select>
+
+    <select id="PageUser" resultType="net.xb.easybuy.baen.User">
+        SELECT * FROM easybuy_user limit #{param1},#{param2}
+    </select>
+</mapper>

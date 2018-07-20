@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>易买网 - 首页</title>
+	<link type="text/css" th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet"/>
+	<script th:src="@{/scripts/jquery-3.1.1.min.js}" src="../static/scripts/jquery-3.1.1.min.js"></script>
+	<script th:src="@{/scripts/function-manage.js}" src="../static/scripts/function-manage.js"></script>
+</head>
+<body>
+<div id="header" class="wrap">
+	<div id="logo"><img th:src="@{/images/logo.gif}" src="../static/images/logo.gif" /></div>
+	<div class="help">
+		<a href="#" class="shopping" th:href="@{/user/toShopping}">购物车</a>
+		<span th:if="${session.username!=null}" th:text="${session.username}" style="color: red">admin</span>
+		<a th:if="${session.username==null}" href="login.html" th:href="@{/user/toLogin}">登录</a>
+		<a th:if="${session.username!=null}" href="login.html" th:href="@{/user/outLogin}">注销</a>
+		<a href="register.html" th:href="@{/user/toRegister}">注册</a>
+		<a href="guestbook.html" th:href="@{/user/toGuestbook}">留言</a>
+	</div>
+	<div class="navbar">
+		<ul class="clearfix">
+			<li class="current"><a href="#" th:href="@{/}">首页</a></li>
+			<li><a href="#" th:href="@{/erro}">图书</a></li>
+			<li><a href="#" th:href="@{/erro}">百货</a></li>
+			<li><a href="#" th:href="@{/erro}">品牌</a></li>
+			<li><a href="#" th:href="@{/erro}">促销</a></li>
+		</ul>
+	</div>
+</div>
+<div id="childNav">
+	<div class="wrap">
+		<ul class="clearfix">
+			<li class="first"><a href="#" th:href="@{/erro}">音乐</a></li>
+			<li><a href="#" th:href="@{/erro}">影视</a></li>
+			<li><a href="#" th:href="@{/erro}">少儿</a></li>
+			<li><a href="#" th:href="@{/erro}">动漫</a></li>
+			<li><a href="#" th:href="@{/erro}">小说</a></li>
+			<li><a href="#" th:href="@{/erro}">外语</a></li>
+			<li><a href="#" th:href="@{/erro}">数码相机</a></li>
+			<li><a href="#" th:href="@{/erro}">笔记本</a></li>
+			<li><a href="#" th:href="@{/erro}">羽绒服</a></li>
+			<li><a href="#" th:href="@{/erro}">秋冬靴</a></li>
+			<li><a href="#" th:href="@{/erro}">运动鞋</a></li>
+			<li><a href="#" th:href="@{/erro}">美容护肤</a></li>
+			<li><a href="#" th:href="@{/erro}">家纺用品</a></li>
+			<li><a href="#" th:href="@{/erro}">婴幼奶粉</a></li>
+			<li><a href="#" th:href="@{/erro}">饰品</a></li>
+			<li class="last"><a href="#" th:href="@{/erro}">Investor Relations</a></li>
+		</ul>
+	</div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a href="index.html" th:href="@{/}">易买网</a> &gt; <a href="product-list.html" th:href="@{product-list.html}">图书音像</a> &gt; 图书
+</div>
+<div id="main" class="wrap">
+	<div class="lefter">
+		<div class="box">
+			<h2>商品分类</h2>
+			<dl th:each="m :${session.productMap}">
+				<dt th:object="${m.key}" th:text="*{epc_name}">图书音像</dt>
+				<dd th:each="v:${m.value}">
+					<a href="product-list.html" th:href="@{/product/toProductList(id = ${v.epc_parent_id})}" th:text="${v.epc_name}">图书</a>
+				</dd>
+			</dl>
+		</div>
+		<div class="spacer"></div>
+		<div class="last-view">
+			<h2>最近浏览</h2>
+			<dl class="clearfix">
+				<dt><img src="../static/images/product/0_tiny.gif" th:src="@{/images/product/0_tiny.gif}"/></dt>
+				<dd><a href="product-view.html"  th:href="@{product-view.html}">法国德菲丝松露精品巧克力500g/盒</a></dd>
+				<dt><img src="../static/images/product/0_tiny.gif" th:src="@{/images/product/0_tiny.gif}"/></dt>
+				<dd><a href="product-view.html" th:href="@{product-view.html}">法国德菲丝松露精品巧克力500g/盒</a></dd>
+			</dl>
+		</div>
+	</div>
+	<div class="main">
+		<div class="product-list">
+			<h2>全部商品</h2>
+			<ul class="product clearfix">
+				<li th:each="product :${products}">
+					<dl>
+						<dt><a href="product-view.html" th:href="@{/product/ProductView(id = ${product.ep_id})}"><img src="../static/images/product/1.jpg" th:src="@{'/images/product/'+${product.ep_file_name}}"/></a></dt>
+						<dd class="title"><a href="product-view.html" target="_blank" th:href="@{/product/ProductView(id = ${product.ep_id})}" th:text="${product.ep_name}">法国德菲丝松露精品巧克力500g/盒</a></dd>
+						<dd class="price" th:text="${product.ep_price}">￥108.0</dd>
+					</dl>
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<div class="pager">
+				<ul class="clearfix">
+					<li><a href="#" th:href="@{/}">上一页</a></li>
+					<li class="current">1</li>
+					<li><a href="#" th:href="@{/}">2</a></li>
+					<li><a href="#" th:href="@{/}">3</a></li>
+					<li><a href="#" th:href="@{/}">4</a></li>
+					<li><a href="#" th:href="@{/}">5</a></li>
+					<li><a href="#" th:href="@{/}">下一页</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	Copyright &copy; 2013 易买网 All Rights Reserved. 川ICP证1000001号
+</div>
+</body>
+</html>

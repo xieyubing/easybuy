@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台管理 - 易买网</title>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css" />
+	<script type="text/javascript" th:src="@{/scripts/jquery-3.1.1.min.js}" src="../../static/scripts/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" th:src="@{/scripts/function-manage.js}" src="../../static/scripts/function-manage.js"></script>
+</head>
+<body>
+<div id="header" class="wrap">
+	<div id="logo"><img th:src="@{/images/logo.gif}" src="../../static/images/logo.gif" /></div>
+	<div class="help"><a th:href="@{/}" href="../index.html">返回前台页面</a></div>
+	<div class="navbar">
+		<ul class="clearfix">
+			<li><a th:href="@{/manage}" href="index.html">首页</a></li>
+			<li><a th:href="@{/user/manageUser}" href="user.html">用户</a></li>
+			<li class="current"><a th:href="@{/product/manageProduct}" href="product.html">商品</a></li>
+			<li><a th:href="@{/order/manageOrder}" href="order.html">订单</a></li>
+			<li><a th:href="@{/user/manageGuestbook}" href="guestbook.html">留言</a></li>
+			<li><a th:href="@{/news/manageNews}" href="news.html">新闻</a></li>
+		</ul>
+	</div>
+</div>
+<div id="childNav">
+	<div class="welcome wrap">
+		管理员<span th:text="${session.username}"></span>您好，今天是<span id="date"></span>，欢迎回到管理后台。
+	</div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a th:href="@{/manage}" href="index.html">易买网</a> &gt; 管理后台
+</div>
+<div id="main" class="wrap">
+	<div id="menu-mng" class="lefter">
+		<div class="box">
+			<dl>
+				<dt>用户管理</dt>
+				<dd><em><a th:href="@{/user/toUserAdd}" href="user-add.html">新增</a></em><a th:href="@{/user/manageUser}" href="user.html">用户管理</a></dd>
+				<dt>商品信息</dt>
+				<dd><em><a th:href="@{/product/toProductClassAdd}" href="productClass-add.html">新增</a></em><a th:href="@{/product/manageProductClass}" href="productClass.html">分类管理</a></dd>
+				<dd><em><a th:href="@{/product/toProductAdd}" href="product-add.html">新增</a></em><a th:href="@{/product/manageProduct}" href="product.html">商品管理</a></dd>
+				<dt>订单管理</dt>
+				<dd><a th:href="@{/order/manageOrder}" href="order.html">订单管理</a></dd>
+				<dt>留言管理</dt>
+				<dd><a th:href="@{/user/manageGuestbook}" href="guestbook.html">留言管理</a></dd>
+				<dt>新闻管理</dt>
+				<dd><em><a th:href="@{/news/toNewsAdd}" href="news-add.html">新增</a></em><a th:href="@{/news/manageNews}" href="news.html">新闻管理</a></dd>
+			</dl>
+		</div>
+	</div>
+	<div class="main">
+		<h2>修改分类</h2>
+		<div class="manage">
+			<form action="manage-result.html">
+				<table class="form">
+					<tr>
+						<td class="field">父分类：</td>
+						<td>
+							<select name="parentId">
+								<option value="0" selected="selected">根栏目</option>
+								<option th:each="categorie:${categories}" th:text="${categorie.epc_name}" th:value="${categorie.epc_parent_id}">电器</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="field">分类名称：</td>
+						<td><input type="text" class="text" th:text="${product_category.epc_name}" name="className" value="电脑" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><label class="ui-blue"><input type="submit" name="submit" value="更新" /></label></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	Copyright &copy; 2013 易买网 All Rights Reserved. 川ICP证1000001号
+</div>
+</body>
+</html>
